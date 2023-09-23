@@ -8,7 +8,7 @@ export const insertDocument = async (user: User) => {
     try {
         await prisma.document.create({
             data: {
-                user_id: user.id,
+                user_id: user.id as number,
                 fullname: user.username
             }
         })
