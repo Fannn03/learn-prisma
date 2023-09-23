@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id            Int         @id @default(autoincrement())
-  uuid          String      @db.VarChar(32) @default(uuid())
+  uuid          String      @db.VarChar(100) @default(uuid())
   username      String      @db.VarChar(32) @unique
   email         String      @db.VarChar(100) @unique
   password      String      @db.VarChar(255)
@@ -38,7 +38,7 @@ model Document {
   nik           String?       @db.VarChar(100) @unique
   fullname      String        @db.VarChar(100)
   photo         String?       @db.VarChar(255) @unique
-  number        String        @db.VarChar(15) @unique
+  number        String?        @db.VarChar(15) @unique
   gender        Gender?
   birth_date    DateTime?
   created_at    DateTime      @default(now())
