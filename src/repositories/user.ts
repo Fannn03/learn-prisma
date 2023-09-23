@@ -3,10 +3,23 @@ import { RequestBody } from "../services/auth/register";
 
 const prisma = new PrismaClient()
 
+export interface User {
+    id: number
+    uuid: string,
+    username: string,
+    email: string,
+    level: string,
+    created_at: Date,
+    updated_at: Date,
+    is_deleted: Boolean
+}
+
 export const insertUser = async (request: RequestBody) => {
     
+    let user: User
+
     try {
-        await prisma.user.create({
+        user = await prisma.user.create({
             data: {
                 username: request.username,
                 email: request.email,
@@ -14,11 +27,9 @@ export const insertUser = async (request: RequestBody) => {
             }
         })
     } catch (err: any) {
-        return err
+        throw err
     }
 
-}
+    return user
 
-export default {
-    insertUser
 }
