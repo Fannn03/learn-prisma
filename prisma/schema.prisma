@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id            Int         @id @default(autoincrement())
-  uuid          String      @db.VarChar(32) @default(uuid())
+  uuid          String      @db.VarChar(100) @default(uuid())
   username      String      @db.VarChar(32) @unique
   email         String      @db.VarChar(100) @unique
   password      String      @db.VarChar(255)
