@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { RequestBody } from "../services/auth/register";
+import { UserRegister } from "../services/auth/register";
 
 const prisma = new PrismaClient()
 
@@ -14,7 +14,7 @@ export interface User {
     is_deleted: Boolean
 }
 
-export const insertUser = async (request: RequestBody) => {
+export const insertUser = async (request: UserRegister) => {
     
     let user: User
 
