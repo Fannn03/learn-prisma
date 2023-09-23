@@ -16,9 +16,39 @@ model User {
   username      String      @db.VarChar(32) @unique
   email         String      @db.VarChar(100) @unique
   password      String      @db.VarChar(255)
+  level         Level       @default(user)
   created_at    DateTime    @default(now())
   updated_at    DateTime    @updatedAt
   is_deleted    Boolean     @default(false)
+  document      Document?
 
   @@map("users")
+}
+
+enum Level {
+  user
+  admin
+  superadmin
+}
+
+model Document {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [user_id], references: [id])
+  user_id       Int           @unique
+  nik           String?       @db.VarChar(100) @unique
+  fullname      String        @db.VarChar(100)
+  photo         String?       @db.VarChar(255) @unique
+  number        String        @db.VarChar(15) @unique
+  gender        Gender?
+  birth_date    DateTime?
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+  is_deleted    Boolean       @default(false)
+
+  @@map("documents")
+}
+
+enum Gender {
+  male
+  female
 }
