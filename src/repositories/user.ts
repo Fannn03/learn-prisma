@@ -1,20 +1,37 @@
 import { PrismaClient } from "@prisma/client";
-import { RequestBody } from "../services/auth/register";
+import { UserRegister } from "../services/auth/register";
+import { UserLogin } from "../services/auth/login";
 
 const prisma = new PrismaClient()
 
 export interface User {
-    id: number
+    id?: number,
     uuid: string,
     username: string,
     email: string,
+    password: string,
     level: string,
     created_at: Date,
     updated_at: Date,
     is_deleted: Boolean
 }
 
-export const insertUser = async (request: RequestBody) => {
+export const getuser = async (request: UserLogin) => {
+
+    const user: User | null = await prisma.user.findFirst({
+        where: {
+            OR: [
+                {username: request.username},
+                {email: request.email}
+            ]
+        }
+    })
+
+    return user
+
+}
+
+export const insertUser = async (request: UserRegister) => {
     
     let user: User
 
